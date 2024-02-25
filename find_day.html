@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Day of the Week</title>
+    <style>
+        body {
+            padding: 0;
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .container input {
+            width: 100%;
+            font-size: 40px;
+            border-radius: 10px;
+            border: 1px solid black;
+        }
+
+        .container button {
+            width: 50%;
+            position: relative;
+            left: 20%;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 30px;
+            background-color: rgba(11, 193, 184, 0.536);
+        }
+        .container button:hover{
+            border-radius: 25px 0 25px 0;
+        }
+        .container p{
+            font-size: 25px;
+        }
+        .container h1 {
+            left: 10%;
+            position: relative;
+            color:  rgba(11, 193, 184, 0.536);
+            font-size: 40px;
+        }
+        .error{
+            color: red;
+        }
+        .success{
+            color: green;
+        }
+
+        @media all and ( max-width: 576px){
+            .container input, p{
+                font-size: 15px;
+            }
+            .container button{
+                font-size: 15px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Find the Day</h1>
+        <input type="date" id="user_input"><br>
+        <p id="demo"></p><br>
+        <button id="find-day" onclick="find()">Calculate</button>
+    </div>
+    <script>
+        function find() {
+            var p = document.getElementById('demo');
+            var userInput = document.getElementById('user_input').value;
+            let ans;
+            var dateObj = new Date(userInput);
+            var year = dateObj.getFullYear();
+            var month = dateObj.getMonth() + 1; // Corrected: add 1 to get the actual month (0-11)
+            var date = dateObj.getDate();
+            if (year % 4 == 0) {
+                ans = `${year} is a leap year`
+            }
+            else {
+                ans = `${year} not a leap year`
+            }
+
+            // Calculate the day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+            var dayOfWeek = dateObj.getDay();
+            var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            var dayName = daysOfWeek[dayOfWeek];
+
+            if (userInput == "") {
+                p.innerHTML = "Please select the date"
+                p.classList.add("error")
+            }
+            else {
+                p.innerHTML = `Date: ${year}/${month}/${date}<br>Day of the week: ${dayName}<br>About year: ${ans} `;
+                p.classList.add("success")
+            }
+        }
+    </script>
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Day in the Week</title>
+</head>
+
+<body>
+    <input type="date" id="user_input">
+    <p id="demo"></p>
+    <button id="find-year" onclick="find()">Calculate</button>
+</body>
+<script>
+    function find() {
+
+        var p = document.getElementById('demo')
+        var userInput = document.getElementById('user_input').value
+        let calculateMonth
+        let calculateYear
+        let dateObj = new Date(userInput)
+        let year = dateObj.getFullYear();
+        let month = dateObj.getMonth();
+        let date = dateObj.getDate();
+
+        let ans = year % 100;
+        let divide = Math.round(ans/4);
+
+        if (month == 0 || month == 9) {
+            calculateMonth = 0
+        }
+        else if (month == 1 || month == 2 || month == 10) {
+            calculateMonth = 3
+        }
+        else if (month == 3 || month == 6) {
+            calculateMonth = 6
+        }
+        else if (month == 4) {
+            calculateMonth = 1
+        }
+        else if (month == 5) {
+            calculateMonth = 4
+        }
+        else if (month == 7) {
+            calculateMonth = 2
+        }
+        else if (month == 8 || month == 11) {
+            calculateMonth = 5
+        }
+
+
+
+        if (year >= 1600 || year <= 1699) {
+            calculateYear = 6
+        }
+        else if (year >= 1700 || year <= 1799) {
+            calculateYear = 4
+        }
+        else if (year >= 1800 || year <= 1899) {
+            calculateYear = 2
+        }
+        else if (year >= 1900 || year <= 1999) {
+            calculateYear = 0
+        }
+        else if (year >= 2000 || year <= 2099) {
+            calculateYear = 6
+        }
+
+        let total = ans + divide + date + calculateMonth + calculateYear
+
+        p.innerHTML = `${year}/${month}/${date}`
+        console.log(ans)
+        console.log(divide)
+        console.log(date)
+        console.log(calculateMonth)
+        console.log(calculateYear)
+        console.log(total)
+
+    }
+</script>
+
+</html> -->
